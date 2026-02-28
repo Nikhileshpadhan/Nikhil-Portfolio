@@ -1,6 +1,6 @@
 # Nikhil's Portfolio 🚀
 
-> **Live Website:** [Link to be added here] 🌐
+https://nikhil-portfolio-bice.vercel.app/
 
 Welcome to the repository for my personal portfolio website! This project is a modern, responsive, and performance-optimized interactive portfolio designed to showcase my skills, projects, and professional background.
 
