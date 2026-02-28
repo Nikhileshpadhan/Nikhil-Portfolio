@@ -19,6 +19,7 @@ const coreSkills = [
 ];
 
 const Skills = () => {
+    const sectionRef = useRef(null);
     const containerRef = useRef(null);
 
     // Cursor reactive liquid light
@@ -29,17 +30,18 @@ const Skills = () => {
     const smoothY = useSpring(mouseY, { stiffness: 60, damping: 20 });
 
     const handleMouseMove = (e) => {
-        const rect = containerRef.current.getBoundingClientRect();
+        if (!sectionRef.current) return;
+        const rect = sectionRef.current.getBoundingClientRect();
         mouseX.set(e.clientX - rect.left);
         mouseY.set(e.clientY - rect.top);
     };
 
     return (
         <section
-            ref={containerRef}
+            ref={sectionRef}
             onMouseMove={handleMouseMove}
             id="skills"
-            className="relative w-full min-h-screen py-32 px-6 md:px-12 flex items-center justify-center overflow-hidden bg-[#0A0A0A]"
+            className="relative w-full min-h-screen py-24 md:py-32 px-6 md:px-12 flex items-center justify-center overflow-hidden bg-[#0A0A0A]"
         >
             {/* ===== Waves Animated Background ===== */}
             <div className="absolute inset-0 pointer-events-none z-0 opacity-80 mix-blend-screen">
@@ -102,18 +104,17 @@ const Skills = () => {
                     <div className="absolute inset-0 bg-gradient-to-b from-white/[0.05] to-transparent pointer-events-none" />
 
                     <div className="relative z-10 flex flex-wrap justify-center gap-4 md:gap-6">
-                        {coreSkills.map((skill, idx) => (
+                        {/* Filter out duplicates */}
+                        {Array.from(new Set(coreSkills)).map((skill, idx) => (
                             <motion.div
                                 key={idx}
-                                drag
-                                dragConstraints={containerRef}
-                                initial={{ y: -100, opacity: 0 }}
-                                animate={{ y: 0, opacity: 1 }}
+                                initial={{ opacity: 0, y: 20 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true, margin: "-10%" }}
                                 transition={{
-                                    delay: idx * 0.1,
-                                    type: "spring",
-                                    stiffness: 200,
-                                    damping: 20,
+                                    delay: idx * 0.05,
+                                    duration: 0.5,
+                                    ease: "easeOut"
                                 }}
                                 whileHover={{ scale: 1.08, y: -6 }}
                                 className="relative"

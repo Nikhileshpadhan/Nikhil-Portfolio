@@ -68,8 +68,8 @@ const Hero = () => {
                             transition={{ delay: 0.8, duration: 0.8 }}
                             className="mb-8"
                         >
-                            <span className="text-white/50 uppercase tracking-[0.25em] text-xs font-medium">
-                                Welcome to my page
+                            <span className="text-white/50 uppercase tracking-[0.25em] text-s font-medium">
+                                HELLO 🙏
                             </span>
                         </motion.div>
 
@@ -79,7 +79,7 @@ const Hero = () => {
                             transition={{ delay: 1, duration: 0.8 }}
                             className="font-display text-2xl md:text-3xl text-white/50 mb-3"
                         >
-                            Hello, I'm
+                            Welcome to My Page I am
                         </motion.h2>
 
                         {/* NIKHIL */}
