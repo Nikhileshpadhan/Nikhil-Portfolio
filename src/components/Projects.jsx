@@ -14,7 +14,7 @@ const projectsData = [
         ],
         color: "from-blue-500/20 to-purple-500/20",
         image: "/projects/hostelfit.png",
-        link: "#" // Placeholder for actual link
+        link: "https://github.com/Nikhileshpadhan/HOSTELFIT-AI.git" // Placeholder for actual link
     },
     {
         title: "AnalytixAI",
@@ -27,7 +27,7 @@ const projectsData = [
         ],
         color: "from-brand-accent/20 to-orange-500/20",
         image: "/projects/analytix.png",
-        link: "#"
+        link: "https://github.com/Nikhileshpadhan/PS-HK20_INNOATIVE-CHAMPS_AnalytixAI.git"
     },
     {
         title: "Food Adulteration Detection",
@@ -40,7 +40,7 @@ const projectsData = [
         ],
         color: "from-emerald-500/20 to-teal-500/20",
         image: "/projects/food.png",
-        link: "#"
+        link: "https://github.com/Nikhileshpadhan/FoodAdulterationDetection.git"
     },
     {
         title: "Tourist Safety Website",
@@ -53,7 +53,7 @@ const projectsData = [
         ],
         color: "from-pink-500/20 to-rose-500/20",
         image: "/projects/tourist.png",
-        link: "#"
+        link: "https://github.com/Nikhileshpadhan/Tourist-Safety-website.git"
     }
 ];
 
