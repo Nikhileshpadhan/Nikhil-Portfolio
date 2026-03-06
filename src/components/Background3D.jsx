@@ -1,14 +1,13 @@
-import React, { useRef, useMemo } from 'react';
+import React, { useRef, useMemo, useState, useEffect } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { PointMaterial, Points } from '@react-three/drei';
 import * as THREE from 'three';
 
-const ParticleCloud = () => {
+const ParticleCloud = ({ count = 3000 }) => {
   const ref = useRef();
-  
+
   // Create a sphere of random particles
   const sphere = useMemo(() => {
-    const count = 3000;
     const array = new Float32Array(count * 3);
     for (let i = 0; i < count; i++) {
       // Random position inside a sphere
@@ -24,7 +23,7 @@ const ParticleCloud = () => {
       array[i * 3 + 2] = r * Math.cos(phi);
     }
     return array;
-  }, []);
+  }, [count]);
 
   useFrame((state, delta) => {
     if (ref.current) {
@@ -51,11 +50,29 @@ const ParticleCloud = () => {
 };
 
 const Background3D = () => {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    // Initial check
+    checkMobile();
+
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
   return (
     <div className="absolute inset-0 z-0 pointer-events-none opacity-60">
-      <Canvas camera={{ position: [0, 0, 15] }}>
+      <Canvas
+        camera={{ position: [0, 0, 15] }}
+        dpr={[1, 1.5]} // Crucial for mobile performance: caps pixel ratio
+        gl={{ antialias: false, powerPreference: "high-performance" }}
+      >
         <ambientLight intensity={0.5} />
-        <ParticleCloud />
+        <ParticleCloud count={isMobile ? 800 : 3000} />
       </Canvas>
     </div>
   );

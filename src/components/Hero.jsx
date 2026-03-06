@@ -1,7 +1,7 @@
 import React, { useRef, useEffect } from "react";
 import { motion, useScroll, useTransform, useMotionValue } from "framer-motion";
 import Background3D from "./Background3D";
-import Nikhilresume from "../Public/Nikhilresume.pdf";
+import Nikhilresume from "../Public/NRESUME.pdf";
 
 const Hero = () => {
     const containerRef = useRef(null);

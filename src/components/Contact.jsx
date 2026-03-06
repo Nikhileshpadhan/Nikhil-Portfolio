@@ -35,33 +35,35 @@ const MagneticButton = ({ children, className, ...props }) => {
 };
 
 // Custom Input field with glowing animated bottom border
-const FloatingInput = ({ label, type = "text", id, textarea = false }) => {
+const FloatingInput = ({ label, type = "text", id, textarea = false, value, onChange, name, required = false }) => {
     const [focused, setFocused] = useState(false);
-    const [hasValue, setHasValue] = useState(false);
+    const hasValue = value && value.length > 0;
 
     return (
         <div className="relative w-full mb-8">
             {textarea ? (
                 <textarea
                     id={id}
+                    name={name}
+                    value={value}
+                    onChange={onChange}
+                    required={required}
                     className="w-full bg-transparent border-b border-white/20 text-white font-sans text-lg py-3 focus:outline-none resize-none hide-scrollbar"
                     rows={4}
                     onFocus={() => setFocused(true)}
-                    onBlur={(e) => {
-                        setFocused(false);
-                        setHasValue(e.target.value.length > 0);
-                    }}
+                    onBlur={() => setFocused(false)}
                 />
             ) : (
                 <input
                     type={type}
                     id={id}
+                    name={name}
+                    value={value}
+                    onChange={onChange}
+                    required={required}
                     className="w-full bg-transparent border-b border-white/20 text-white font-sans text-lg py-3 focus:outline-none"
                     onFocus={() => setFocused(true)}
-                    onBlur={(e) => {
-                        setFocused(false);
-                        setHasValue(e.target.value.length > 0);
-                    }}
+                    onBlur={() => setFocused(false)}
                 />
             )}
 
@@ -88,6 +90,29 @@ const FloatingInput = ({ label, type = "text", id, textarea = false }) => {
 
 const Contact = () => {
     const containerRef = useRef(null);
+    const [formData, setFormData] = useState({
+        name: "",
+        email: "",
+        company: "",
+        message: ""
+    });
+
+    const handleChange = (e) => {
+        setFormData({ ...formData, [e.target.name]: e.target.value });
+    };
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+
+        const subject = encodeURIComponent(`Portfolio Contact from ${formData.name}`);
+        const body = encodeURIComponent(
+            `Name: ${formData.name}\nEmail: ${formData.email}\nCompany: ${formData.company || 'N/A'}\n\nMessage:\n${formData.message}`
+        );
+
+        window.location.href = `mailto:nikhilesh.coder@gmail.com?subject=${subject}&body=${body}`;
+
+        setFormData({ name: "", email: "", company: "", message: "" });
+    };
 
     // Subtle scroll parallax for the section
     const { scrollYProgress } = useScroll({
@@ -201,23 +226,24 @@ const Contact = () => {
                         {/* Hover flare top border */}
                         <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-brand-accent/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
 
-                        <form className="space-y-4 relative z-10" onSubmit={(e) => e.preventDefault()}>
+                        <form className="space-y-4 relative z-10" onSubmit={handleSubmit}>
 
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                <FloatingInput id="name" label="What's your name?" />
-                                <FloatingInput id="email" type="email" label="Your email?" />
+                                <FloatingInput id="name" name="name" label="What's your name?" value={formData.name} onChange={handleChange} required={true} />
+                                <FloatingInput id="email" name="email" type="email" label="Your email?" value={formData.email} onChange={handleChange} required={true} />
                             </div>
 
                             <div className="mt-4">
-                                <FloatingInput id="company" label="Company / Organization (Optional)" />
+                                <FloatingInput id="company" name="company" label="Company / Organization (Optional)" value={formData.company} onChange={handleChange} />
                             </div>
 
                             <div className="mt-4">
-                                <FloatingInput id="message" label="Tell me about your project..." textarea={true} />
+                                <FloatingInput id="message" name="message" label="Tell me about your project..." textarea={true} value={formData.message} onChange={handleChange} required={true} />
                             </div>
 
                             <div className="pt-8 flex justify-end">
                                 <MagneticButton
+                                    type="submit"
                                     className="px-10 py-5 rounded-full border border-white/20 bg-transparent text-white font-display text-xs tracking-[0.2em] uppercase font-bold transition-colors cursor-pointer"
                                 >
                                     <span className="relative z-10 flex items-center">

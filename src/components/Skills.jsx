@@ -1,21 +1,25 @@
 import React, { useRef } from "react";
 import { motion, useMotionValue, useSpring } from "framer-motion";
+import {
+    FaReact, FaNodeJs, FaPython, FaGitAlt,
+    FaChartBar, FaBrain, FaRobot
+} from "react-icons/fa";
+import { SiDjango, SiFastapi } from "react-icons/si";
+import { VscVscode } from "react-icons/vsc";
 
 import Waves from "./Waves";
 
 const coreSkills = [
-    "React",
-    "Django",
-    "Fast-API",
-    "Node",
-    "Data Analysis",
-    "Machine Learning",
-    "Generative AI",
-    "Django",
-    "FastAPI",
-    "Git & GitHub",
-    "VS Code",
-    "AntiGravity"
+    { name: "React", icon: <FaReact className="text-3xl mb-2 text-[#61DAFB]" /> },
+    { name: "Django", icon: <SiDjango className="text-3xl mb-2 text-[#092E20]" /> },
+    { name: "FastAPI", icon: <SiFastapi className="text-3xl mb-2 text-[#009688]" /> },
+    { name: "Node.js", icon: <FaNodeJs className="text-3xl mb-2 text-[#339933]" /> },
+    { name: "Data Analysis", icon: <FaChartBar className="text-3xl mb-2 text-blue-400" /> },
+    { name: "Machine Learning", icon: <FaBrain className="text-3xl mb-2 text-pink-400" /> },
+    { name: "Generative AI", icon: <FaRobot className="text-3xl mb-2 text-purple-400" /> },
+    { name: "Git & GitHub", icon: <FaGitAlt className="text-3xl mb-2 text-[#F05032]" /> },
+    { name: "VS Code", icon: <VscVscode className="text-3xl mb-2 text-[#007ACC]" /> },
+    { name: "AntiGravity", icon: <span className="text-3xl mb-2 block">🚀</span> }
 ];
 
 const Skills = () => {
@@ -103,9 +107,8 @@ const Skills = () => {
                     {/* Inner glass shine */}
                     <div className="absolute inset-0 bg-gradient-to-b from-white/[0.05] to-transparent pointer-events-none" />
 
-                    <div className="relative z-10 flex flex-wrap justify-center gap-4 md:gap-6">
-                        {/* Filter out duplicates */}
-                        {Array.from(new Set(coreSkills)).map((skill, idx) => (
+                    <div className="relative z-10 flex flex-wrap justify-center gap-6 md:gap-8">
+                        {coreSkills.map((skill, idx) => (
                             <motion.div
                                 key={idx}
                                 initial={{ opacity: 0, y: 20 }}
@@ -116,12 +119,13 @@ const Skills = () => {
                                     duration: 0.5,
                                     ease: "easeOut"
                                 }}
-                                whileHover={{ scale: 1.08, y: -6 }}
-                                className="relative"
+                                whileHover={{ scale: 1.05, y: -6 }}
+                                className="relative group"
                             >
-                                <div className="relative px-6 md:px-8 py-3 md:py-4 rounded-full border border-white/10 bg-white/5 hover:border-brand-accent hover:bg-brand-accent/10 transition-all duration-300">
-                                    <span className="font-display text-xs md:text-sm text-white/80 font-bold tracking-widest uppercase">
-                                        {skill}
+                                <div className="relative flex flex-col items-center justify-center w-28 h-28 md:w-32 md:h-32 rounded-2xl border border-white/10 bg-white/5 hover:border-brand-accent hover:bg-brand-accent/10 transition-all duration-300 shadow-lg">
+                                    {skill.icon}
+                                    <span className="font-display text-[10px] md:text-xs text-center text-white/80 font-bold tracking-widest uppercase group-hover:text-white transition-colors duration-300">
+                                        {skill.name}
                                     </span>
                                 </div>
                             </motion.div>

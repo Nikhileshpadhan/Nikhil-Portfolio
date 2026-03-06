@@ -1,4 +1,4 @@
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, useState } from 'react';
 
 class Grad {
   constructor(x, y, z) {
@@ -123,6 +123,14 @@ const Waves = ({
     yGap
   });
   const frameIdRef = useRef(null);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth <= 768 || window.matchMedia("(pointer: coarse)").matches);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   useEffect(() => {
     configRef.current = {
@@ -140,8 +148,10 @@ const Waves = ({
   }, [lineColor, waveSpeedX, waveSpeedY, waveAmpX, waveAmpY, friction, tension, maxCursorMove, xGap, yGap]);
 
   useEffect(() => {
+    if (isMobile) return;
     const canvas = canvasRef.current;
     const container = containerRef.current;
+    if (!canvas || !container) return;
     ctxRef.current = canvas.getContext('2d');
 
     function setSize() {
@@ -293,7 +303,19 @@ const Waves = ({
       window.removeEventListener('touchmove', onTouchMove);
       cancelAnimationFrame(frameIdRef.current);
     };
-  }, []);
+  }, [isMobile]);
+
+  if (isMobile) {
+    return (
+      <div
+        ref={containerRef}
+        style={{ backgroundColor, ...style }}
+        className={`absolute top-0 left-0 w-full h-full overflow-hidden ${className}`}>
+        {/* Simple fallback styling for mobile */}
+        <div className="absolute inset-0 bg-gradient-to-br from-brand-dark via-brand-accent/5 to-brand-dark" />
+      </div>
+    );
+  }
 
   return (
     <div

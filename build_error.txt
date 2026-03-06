@@ -1,0 +1,29 @@
+
+> portfolio@0.0.0 build
+> vite build
+
+[36mvite v7.3.1 [32mbuilding client environment for production...[36m[39m
+transforming...
+[32m✓[39m 1006 modules transformed.
+[31m✗[39m Build failed in 7.06s
+[31merror during build:
+[31msrc/components/Skills.jsx (7:30): "SiVisualstudiocode" is not exported by "node_modules/react-icons/si/index.mjs", imported by "src/components/Skills.jsx".[31m
+file: [36mD:/SAMPLE/Portfolio/Portfolio/src/components/Skills.jsx:7:30[31m
+[33m
+5:     FaChartBar, FaBrain, FaRobot
+6: } from "react-icons/fa";
+7: import { SiDjango, SiFastapi, SiVisualstudiocode } from "react-icons/si";
+                                 ^
+8: 
+9: import Waves from "./Waves";
+[31m
+    at getRollupError (file:///D:/SAMPLE/Portfolio/Portfolio/node_modules/rollup/dist/es/shared/parseAst.js:402:41)
+    at error (file:///D:/SAMPLE/Portfolio/Portfolio/node_modules/rollup/dist/es/shared/parseAst.js:398:42)
+    at Module.error (file:///D:/SAMPLE/Portfolio/Portfolio/node_modules/rollup/dist/es/shared/node-entry.js:17040:16)
+    at Module.traceVariable (file:///D:/SAMPLE/Portfolio/Portfolio/node_modules/rollup/dist/es/shared/node-entry.js:17452:29)
+    at ModuleScope.findVariable (file:///D:/SAMPLE/Portfolio/Portfolio/node_modules/rollup/dist/es/shared/node-entry.js:15070:39)
+    at Identifier.bind (file:///D:/SAMPLE/Portfolio/Portfolio/node_modules/rollup/dist/es/shared/node-entry.js:5447:40)
+    at CallExpression.bind (file:///D:/SAMPLE/Portfolio/Portfolio/node_modules/rollup/dist/es/shared/node-entry.js:2825:28)
+    at CallExpression.bind (file:///D:/SAMPLE/Portfolio/Portfolio/node_modules/rollup/dist/es/shared/node-entry.js:12179:15)
+    at Property.bind (file:///D:/SAMPLE/Portfolio/Portfolio/node_modules/rollup/dist/es/shared/node-entry.js:2829:23)
+    at ObjectExpression.bind (file:///D:/SAMPLE/Portfolio/Portfolio/node_modules/rollup/dist/es/shared/node-entry.js:2825:28)[39m
